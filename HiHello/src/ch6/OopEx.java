@@ -282,4 +282,3 @@ class Data
 {
 	int x;
 }
-
