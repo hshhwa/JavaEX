@@ -1,10 +1,4 @@
 package ch2;
-
-// https://github.com/jongyeonsim2/Megazone2024_JAVA
-// 강사님 깃허브 주소
-	
-
-
 /**
  * 변수의 초기화
  * - 변수를 사용하기 전에 처음으로 값을 저장하는 것.
