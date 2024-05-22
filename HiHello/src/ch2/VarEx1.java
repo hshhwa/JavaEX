@@ -1,5 +1,8 @@
 package ch2;
 
+// https://github.com/jongyeonsim2/Megazone2024_JAVA
+// 강사님 깃허브 주소
+	
 
 
 /**
