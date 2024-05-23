@@ -188,7 +188,6 @@ public class OopEx {
 		change(d);
 		System.out.println(d.x);
 		
-		
 	} //end of main()
 	
 	// static 메소드는 static 메소드만 호출가능.
