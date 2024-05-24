@@ -100,6 +100,13 @@ package ch7;
 *   - 단점 (강한결합)        
 *     강결합의 가능성이 있을 수 있다.
 *     
+*     결합도가 낮고, 응집도가 높은 코드 => 코드 품질 향상. = > 유지보수, 테스트 => 생산성 향상.
+*     
+*     결합도가 낮다는 것은 클래스간의 관계를 약하게 하는 것이다.        => 문법적인 요소로 활용.
+*     => 코드 수정시 사용되는 다른 곳에 영향이 없도록 코드를 작성. 
+*     응집도가 높다는 것은 관련 기능을한 곳에서 관리가 되도록 하는 것이다. => 도메인 지식이 필요하다.
+*     
+*     
 *   - 관계
 *     논리적으로 합당한 관계가 되어야 한다.
 *     
@@ -113,9 +120,45 @@ package ch7;
 *   - 문법적 관계
 *     extends(확장)
 *     
+*   - 단일 상속, 멀티 상속(다중 상속)
+*     단일 상속 : 기반 클래스가 하나.   => JAVA
+*     다중 상속 : 기반 클래스가 여러개.  => C++ 
 *     
+*     JAVA 에서 다중상속 처럼 사용하고 싶은 경우.
+*      상속관계(is-a) + 포함관계(has-a) => extends + 멤버변수로 사용.
+*      
+*   - Object 클래스
+*     Object 클래스는 모든 클래스 상송계층도의 최상위에 있는 부모 클래스이다.
 *     
+*     class Tv {} class를 만들면 컴파일러가 아래의 코드로 변경
+*     class Tv {} extends Object{}
 *     
+*     Object class 에서 제공되는 메소드를 활용할 수 있도록 하면 좋음.
+*     => 재사용성, 유지보수 좋아짐.
+*   
+*   - 오버라이딩(overriding)
+*     기반 클래스로부터 상속받은 메소드의 내용을 변경하는 것.
+*     
+*     조건 : 메소드의 이름이 동일해야한다, 매개변수도 동일해야 한다, 반환타입또한 동일해야 한다.
+*     
+*     오버로딩과 오버라이딩
+*     오버로딩 : 상속관계가 아니다. 기존에 없는 메스드를 새로 정의하는 것이다.
+*     오버라이딩 : 상속관계이다. 자식클래스 쪽에서 부모 메소드와 동일한 것을 재정의 하는 것이다.
+*   
+*   - super
+*     모든 인스턴스 메소드에는 자신이 속한 인스턴스의 주소가 지역변수로 저장된다.
+*     이것이 참조변수인 this와 super이다.
+*     
+*     this : 멤벼변수와 지역변수의 차이를 두고 싶어서. 자기 클래스 안에서 구분을 위함.
+*     super : 클래스 간의 관계에서 부모(기반)의멤버와 자식(파생)의멤버을 구분하기 위해서.
+*     
+*   - super()
+*     자식 클래스의 인스턴스를 생성하면, 자식의 멤버와 부모의 멤버가 모두 합쳐진 하나의 인스턴스가 생성된다.
+*     => 자식 클래스에서 부모 클래스의 멤버를 사용할 수 있게 된다.
+*     
+*   - 인스턴스 생성시 선택
+*     클래스 : 어떤 클래스의 인스턴스를 생성할 것인가? => 클래스 설계
+*     생성자 : 선택한 클래스의 어떤 생성자를 이용해서 인스턴스를 생성할 것인가? => 상태 설계    
 *                               
 */  
 
@@ -183,9 +226,197 @@ public class OopEx2
 		
 		d.shuffle();
 		
+		Child2 ctest = new Child2();
+		
 	}// end of main()
 
 }
+
+// super 활용 예제 클래스
+class Parent2
+{
+	int x = 10;
+	int y = 10;
+}
+
+class Child2 extends Parent2
+{
+	int y = 20;
+	void method1()
+	{
+		System.out.println("x = " + x);             // 10
+		System.out.println("this.x = " + this.x);   // 10
+		System.out.println("super.x = " + super.x); // 10
+	}
+	
+	void method2()
+	{
+		System.out.println("y = " + y);             // 20
+		System.out.println("this.y = " + this.y);   // 20
+		System.out.println("super.y = " + super.y); // 10
+	}
+}
+
+// 컴파일러상 Object 상속
+// 메모리 상에 아래와 비슷하게 만들어 준다.
+// 그래서 x로 접근이가능하고 method() 에서는 지역변수로 this, super가 초기화 되어 있어,
+// this.x 와 super.x 를 메소드 내에서 사용할 수 있게 됨.
+// class Child
+//{ int x = 10;
+//	void method(){ this, super }
+//}
+
+
+
+// 오버라이딩 클래스
+class Point2    // 부모 클래스, 2차원
+{
+	int x;
+	int y;
+	
+	Point2(int x, int y)
+	{
+		this.x = x;
+		this.y = y;
+	}
+	
+	String GetLocation()
+	{
+		return "x : " + x + ", y = " + y;
+	}
+}
+
+class Point3D extends Point2 // 자식 클래스, 3차원
+{
+	int z;
+	
+	Point3D(int x)
+	{
+		super(x,0);
+	}
+	
+	Point3D(int x, int y)
+	{
+		// Point3D 는 자식 클래스임으로 부모 클래스인 Point2가 없이는 존재할 수 없다.
+		// => 따라서 Point2가 먼저 인스턴스로 생성되어야 Point3D의 인스턴스를 생성할 수 있다.
+		// => 자식 클래스의 생성자에는 반드시 첫 줄에 부모 클래스의 생성자를 호출해서,
+		//    자식클래스의 인스턴스를 먼저 생성해야 한다.
+		super(x,y); // this : 자기참조 연산자, this() : 생성자 호출 , super() : 부모생성자 호출
+	}
+	
+	
+	// 오버라이딩
+	// 좌표를 출력할 때,
+	// 1. 재사용고려 => 부모 클래스의 메소드를 사용.
+	// 2. 나의 상태 정보는 내가 출력 => 추가적으로 코드 작성필요.
+	
+	
+	// 아쉬운 오버라이딩
+	//String GetLocation()
+	//{ 재사용 코드가 아님
+	//	return "x : " + x + ", y = " + y + ", z = " + z;
+	//}
+	
+	// 추천되는 오버라이딩
+	
+	String GetLocation()
+	{
+		// 재사용 코드이다.
+		// 부모 클래스의 메소드 내부의 내용이 변경이 되더라도,
+		// 변경된 내용이 자식 클래스에 영향을 주지않고,
+		// 자동적으로 반영이 된다.
+		return super.GetLocation() + ", z : " + z;
+	}
+}
+
+
+
+
+
+// JAVA에서의 다중상속과 유사한 클래스 작성.
+// TV, VCR(셋톱박스처럼 생각) class를 이용해서 다중상속처럼 사용하려면,
+// 하나의 클래스로부터는 상속을 받고, 다른 클래스를 참조변수 멤버변수로 가지게 한다.
+
+// TV : 부모 클래스
+// VCR : 자식, 멤버변수(옵션)
+
+class Tv
+{
+	boolean power;
+	int channel;
+	
+	void Power()
+	{
+		power = !power;
+	}
+	
+	void ChannelUp()
+	{
+		channel++;
+	}
+	
+	void ChannelDown()
+	{
+		channel--;
+	}
+}
+
+class Vcr
+{
+	boolean power;
+	
+	void Play()
+	{
+		power = true;
+	}
+	
+	void Stop()
+	{
+		power = false;
+	}
+	
+	void rew()	
+	{
+		
+	}
+	
+	void pp()
+	{
+		
+	}
+}
+
+class TvVcr extends Tv
+{
+	Vcr vcr = new Vcr();
+	
+	// 전원은 기반 클래스의 메소드를 사용.
+	
+	// TvVcr은 별도의 새로운 제품임으로 자기만의 기능을 구현해야한다.
+	void play()
+	{
+		// 추가적으로 나만을 위한 play() 관련 기능을 향후에 개선하고 싶다.
+		
+		// vcr 기능은 내가 신경 쓰지 않아도 관리되고 향상되면 나는 오케이다.
+		vcr.Play();
+	}
+	
+	void Stop()
+	{
+		vcr.Stop();
+	}
+	
+	void rew()
+	{
+		vcr.rew();
+	}
+	
+	void pp()
+	{
+		vcr.pp();
+	}
+}
+
 
 // 포커카드를 만듬.
 // 포커카드 한 세트
@@ -202,7 +433,7 @@ class PockerCard
 	static final int CLOVER = 1;
 	
 	// 카드별 무늬 및 숫자
-	int kind;
+	int kind;    // 1. 무늬를 나타내는 정보. 2. 화면 출력용 데이터 배열의 index 정보.
 	int number;
 	
 	PockerCard()
@@ -219,6 +450,10 @@ class PockerCard
 	// 현재 인스턴트 카드 한 장의 정보를 출력.
 	public String toString()
 	{
+		// 배열로 관리하는 이유.
+		// 1. 화면 출력용 데이터를 한곳에서 관리하려는 이유
+		// 2. 코드 작성 시 가독성과 사용 편리성을 높이기 위한 이유.
+		
 		String[] Kinds = {"","CLOVER","HEART","DIAMOND","SPADE"};
 		String numbers = "0123456789XJQK";
 		return "kind : " + Kinds[this.kind] + " Number = " + numbers.charAt(this.number);
@@ -233,6 +468,9 @@ class Deck
 {
 	// 클래스 변수
 	static final int CARD_NUM = 52;
+	
+	// 인스턴스 상수
+	// final int CARD_NUM = 52;
 	
 	// 인스턴스 변수
 	PockerCard[] CardArr = new PockerCard[CARD_NUM];
@@ -285,7 +523,6 @@ class Deck
 			System.out.println("변경후");
 			CardArr[idx] = CardArr[idx2];
 			CardArr[idx2] = tmp;
-				
 			System.out.println(CardArr[idx].toString());
 			System.out.println(CardArr[idx2].toString()); 
 		  }
@@ -469,5 +706,3 @@ class Data2
 	
 	
 }
-
-
