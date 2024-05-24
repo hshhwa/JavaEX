@@ -467,6 +467,7 @@ class Data2
 		value = (int)x;
 	}
 	
+	
 }
 
 
