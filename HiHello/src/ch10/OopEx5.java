@@ -15,9 +15,14 @@ package ch10;
  *            어떤 Ship에는 공격 Ship를 구현하지 않고, => 여객선
  *            어떤 Ship에는 공격 Ship를 구현한다면 => 함선 
  *            
+ *            interface를 기준으로 관계없는 것들도 세분화해서 다형성을 적용할 수 있다.
+ *            
  *            전투와 관련된 다형성
  *            전투와 관련 되지않은 다형성
  *            이동과 관련된 다형성
+ *            
+ *            
+ *   인터페이스 예제 => 스타크래프트 캐릭터를 만듬. Marine, Scv, Tank, Dropship          
  *   
  * 
  * 
@@ -28,7 +33,8 @@ package ch10;
 
 public class OopEx5 {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 		// TODO Auto-generated method stub
 
 	}
