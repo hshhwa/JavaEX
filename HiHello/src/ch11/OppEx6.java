@@ -127,7 +127,18 @@ class ParsingManager
 	
 	public static Parser CheckVersion(Parser p)
 	{
-		return new HtmlParsing();
+		if(p instanceof HtmlParsing)
+		{
+			return new HtmlParsing();
+		}
+		else if(p instanceof xmlParsing)
+		{
+			return new xmlParsing();
+		}
+		else
+		{
+			return null;
+		}
 	}
 }
 
