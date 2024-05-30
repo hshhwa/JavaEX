@@ -1,5 +1,7 @@
 package ch13;
 import java.util.*;
+
+
 /*
  * 컬렉션 프레임워크(Collections Framework)
  * 
@@ -207,7 +209,7 @@ public class CollectionsFWEx1
 		
 		
 		// ------------------ HashSet ---------------------
-		Object[] objArr = {"1", new Integer(1), "2", "3", "3", "4"};
+		Object[] objArr = {"1", new Integer(1), "2", "3", "3", "4",1, 2};
 		Set set = new HashSet();
 		
 		for(int i = 0; i < objArr.length; i++)
