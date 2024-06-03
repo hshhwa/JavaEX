@@ -34,6 +34,8 @@ import java.util.*;
  *    - 타입 안정성을 제공
  *    - 타입체크와 형변환을 생략할 수 있음. -> 코드가 심플해진다.
  *    
+ *   제네릭을 사용한 다형성을 항상 생각.
+ *    
  *    
  * class Box
  * {
@@ -88,30 +90,29 @@ import java.util.*;
  * 
  * 
  * - static 멤버에 타입 변수 T를 사용할 수 없다.
+ *   -> 인스턴스를 생성하지 않아도 사용 가능.
+ *   -> 하지만 타입 변수 T는 인스턴스이다. (컴파일 시점에 T는 타입이 지정된다. 그래서 인스턴스 변수로 간주된다.)
+ *   
+ *   class Box<T>
+ *   {
+ *   	class 멤버
+ *   	static T item;  // 에러
+ *   }	
+ * 
  * - 제네릭 타입의 배열 생성을 할 수 없다.
- * - instanceof 연산자, new 연산자에서 타입 변수 T를 피연산자로 사용할 수 없다.  	
+ *	 T[] tmpArr = new T[100];  <- 배열 생성 할 수 없음. 
+ * 
+ * 
+ * - instanceof 연산자, new 연산자에서 타입 변수 T를 피연산자로 사용할 수 없다.
  * 
  * 
  * 제네릭이란?
  * - 인스턴스별로 원하는 타입을 지정해서 사용함으로
  * - 제네릭은 인스턴스 별로 다르게 동작되도록 말려고 하는 자바의 기능. 
  * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
+
  * 
  */
-
-
-
-
-
-
-
 public class GenericsEx1 {
 
 	public static void main(String[] args) 
@@ -152,9 +153,8 @@ public class GenericsEx1 {
 		fruitBox.add(new Fruit());
 		fruitBox.add(new Apple());
 		fruitBox.add(new Grape());
-		
 		// 매개변수의 타입이 Fruit이다. Toy class와 전혀 관계가 없다.
-		fruitBox.add(new Toy());
+		//fruitBox.add(new Toy());
 		
 		appleBox.add(new Apple());
 		//appleBox.add(new Grape());
@@ -222,7 +222,7 @@ class Grape extends Fruit
 	}
 }
 
-class Toy extends Fruit
+class Toy
 {
 	public String toString()
 	{
