@@ -81,7 +81,7 @@ import java.util.Vector;
  *    
  *    interface의 제약사항
  *     - 모든 멤버변수는 public static final 이어야 한다. 생략할 수 없다.
- *     - 모든 메소드는 public abstract 이어야 한다. 생략할 수 없다.
+ *     - 모든 메소드는 public abstract 이어야 한다. 생략할 수 있다.
  *     - 단, static 메소드와 default 메소드는 예외.
  *     
  *    interface의 상속
